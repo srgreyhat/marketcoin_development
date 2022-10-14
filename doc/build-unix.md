@@ -85,21 +85,14 @@ BerkeleyDB 6.2 is required for the wallet.
 	wget http://download.oracle.com/berkeley-db/db-6.2.23.tar.gz &&
 	tar xvfz db-6.2.23.tar.gz &&
 	cd db-6.2.23/build_unix                        &&
-	../dist/configure --prefix=/usr      \
-			  --enable-compat185 \
-			  --enable-dbm       \
-			  --disable-static   \
-			  --enable-cxx       &&
+	../dist/configure --prefix=/usr --enable-compat185 --enable-dbm --disable-static --enable-cxx &&
 	make
 
 Now as root user:
 
 	make docdir=/usr/share/doc/db-6.2.23 install &&
-	chown -v -R root:root                        \
-	      /usr/bin/db_*                          \
-	      /usr/include/db{,_185,_cxx}.h          \
-	      /usr/lib/libdb*.{so,la}                \
-	      /usr/share/doc/db-6.2.23
+	chown -v -R root:root /usr/bin/db_* /usr/include/db{,_185,_cxx}.h /usr/lib/libdb*.{so,la} /usr/share/doc/db-6.2.23
+	
 Optional:
 
     sudo apt-get install libminiupnpc-dev (see --with-miniupnpc and --enable-upnp-default)
