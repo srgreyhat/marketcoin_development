@@ -44,7 +44,7 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
 
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
-    const char* pszTimestamp = "Kiamat Tahun 2060 - 12/18/2021";
+    const char* pszTimestamp = "Marketcoin 2 - Oct 14th 2022";
     const CScript genesisOutputScript = CScript() << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f") << OP_CHECKSIG;
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
@@ -94,31 +94,11 @@ public:
         nDefaultPort = 19552;
         nPruneAfterHeight = 100000;
 
-        genesis = CreateGenesisBlock(1665740480, 0, 0x1e0ffff0, 1, 0);
-        
-        if (true && (genesis.GetHash() != consensus.hashGenesisBlock)) {
-		std::cout << std::string("Calculating main genesis block...\n");
-            arith_uint256 hashTarget = arith_uint256().SetCompact(genesis.nBits);
-            uint256 hash;
-            genesis.nNonce = 0;
-            while (UintToArith256(genesis.GetHash()) > hashTarget)
-            {
-                ++genesis.nNonce;
-                if (genesis.nNonce == 0)
-                {
-                    ++genesis.nTime;
-                }
-            }
-            std::cout << "Genesis block found!\n";
-            std::cout << "nonce: " << genesis.nNonce << "\n";
-            std::cout << "time: " << genesis.nTime << "\n";
-            std::cout << "blockhash: " << genesis.GetHash().ToString().c_str() << "\n";
-            std::cout << "merklehash: " << genesis.hashMerkleRoot.ToString().c_str() << "\n";
-        }
-
+        genesis = CreateGenesisBlock(1665740480, 348316, 0x1e0ffff0, 1, 0);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x"));
-        assert(genesis.hashMerkleRoot == uint256S("0x"));
+
+        assert(consensus.hashGenesisBlock == uint256S("0x000009823d6eebedbc9ff43133473eb2fef9940d21ba4d0cbf75fda534ce7c13"));
+        assert(genesis.hashMerkleRoot == uint256S("0x210fa4eec89aa4b79eaeac9ebc22f1e3aac6cb88ebbb4f27bd5947a8245faf80"));
 
 	    vSeeds.push_back(CDNSSeedData("vps-565c969f.vps.ovh.net", "vps-565c969f.vps.ovh.net",true));
 	    vSeeds.push_back(CDNSSeedData("vps-1254e315.vps.ovh.ca", "vps-1254e315.vps.ovh.ca",true));
@@ -141,7 +121,7 @@ public:
 
         checkpointData = (CCheckpointData) {
                     boost::assign::map_list_of
-                    (0, uint256S("0x")),
+                    (0, uint256S("0x000009823d6eebedbc9ff43133473eb2fef9940d21ba4d0cbf75fda534ce7c13")),
                     1665740480, // * UNIX timestamp of last checkpoint block, Fri, 06 May 2022 03:06:25
                     0,    // * total number of transactions between genesis and last checkpoint
                                 //   (the tx=... number in the SetBestChain debug.log lines)
